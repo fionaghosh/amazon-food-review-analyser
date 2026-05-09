@@ -21,21 +21,11 @@ st.set_page_config(
 
 @st.cache_resource
 def load_models():
-    base_dir   = Path(__file__).parent.resolve()
-    model_path = str(base_dir / 'sentiment_model')
-    
-    tokenizer = DistilBertTokenizer.from_pretrained(
-        model_path,
-        local_files_only=True
-    )
-    model = DistilBertForSequenceClassification.from_pretrained(
-        model_path,
-        local_files_only=True
-    )
+    tokenizer = DistilBertTokenizer.from_pretrained('fionaghosh/amazon-food-review-sentiment')
+    model     = DistilBertForSequenceClassification.from_pretrained('fionaghosh/amazon-food-review-sentiment')
     model.eval()
-    embedder = SentenceTransformer('all-MiniLM-L6-v2')
+    embedder  = SentenceTransformer('all-MiniLM-L6-v2')
     return tokenizer, model, embedder
-
 @st.cache_data
 def load_topic_data():
     base_dir = Path(__file__).parent.resolve()
